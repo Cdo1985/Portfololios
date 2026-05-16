@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)file:///C:/Users/Chris/Desktop/projects_landing.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Portfolio — All Projects</title>
+<link href="./The Portfolio — All Projects_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080a0e;
+    --surface: #0d1017;
+    --border: #1a2030;
+    --accent: #00e5ff;
+    --accent2: #ff3c6e;
+    --text: #c8d4e8;
+    --muted: #4a5568;
+    --heading: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 10vw, 120px);
+    line-height: 0.9;
+    color: var(--heading);
+    letter-spacing: 0.02em;
+  }
+
+  h1 span {
+    color: var(--accent2);
+  }
+
+  .meta {
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .meta strong { color: var(--text); }
+
+  /* SEARCH */
+  .search-bar {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .search-wrap {
+    position: relative;
+    max-width: 480px;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 12px 16px 12px 44px;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.04em;
+  }
+
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--muted); }
+
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  #count {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ALPHA NAV */
+  .alpha-nav {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .alpha-nav a {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .alpha-nav a:hover,
+  .alpha-nav a.active { color: var(--accent); background: rgba(0,229,255,0.07); }
+
+  /* PROJECT LIST */
+  .project-list {
+    padding: 40px 0 100px;
+  }
+
+  .letter-group {
+    margin-bottom: 48px;
+  }
+
+  .letter-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 2px;
+    user-select: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+
+  .project-item {
+    display: grid;
+    grid-template-columns: 28px 220px 120px 1fr;
+    gap: 0 20px;
+    align-items: start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(26,32,48,0.6);
+    transition: background 0.15s;
+    cursor: default;
+  }
+
+  .project-item:hover {
+    background: rgba(0,229,255,0.03);
+  }
+
+  .project-item:hover .project-name {
+    color: var(--accent);
+  }
+
+  .proj-num {
+    color: var(--muted);
+    font-size: 11px;
+    padding-top: 2px;
+    text-align: right;
+  }
+
+  .project-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--heading);
+    letter-spacing: 0.05em;
+    transition: color 0.15s;
+    line-height: 1.3;
+  }
+
+  .project-tag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    padding-top: 3px;
+    line-height: 1.4;
+  }
+
+  .project-desc {
+    color: var(--text);
+    font-size: 12px;
+    line-height: 1.65;
+    font-style: italic;
+    opacity: 0.75;
+  }
+
+  .no-results {
+    display: none;
+    padding: 60px 0;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .project-item {
+      grid-template-columns: 24px 1fr;
+      grid-template-rows: auto auto auto;
+    }
+    .project-tag { grid-column: 2; }
+    .project-desc { grid-column: 2; }
+    h1 { font-size: 56px; }
+  }
+
+  /* Fade-in animation */
+  .project-item {
+    animation: fadeUp 0.3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Complete Portfolio Index</div>
+    <h1>ALL<br><span>PROJECTS</span></h1>
+    <div class="meta">
+      <span><strong>76</strong> PROJECTS</span>
+      <span><strong>FARCASTER / ONCHAIN</strong> ECOSYSTEM</span>
+      <span><strong>2024 – 2025</strong></span>
+    </div>
+  </header>
+
+  <div class="search-bar">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search" placeholder="Search projects..." autocomplete="off" spellcheck="false">
+    </div>
+    <div id="count">SHOWING 76 OF 76 PROJECTS</div>
+  </div>
+
+  <nav class="alpha-nav" id="alphaNav"><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-A" class="active">A</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-B" class="active">B</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-C" class="active">C</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-D" class="active">D</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-E" class="active">E</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-F" class="active">F</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-G" class="active">G</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-H" class="active">H</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-I" class="active">I</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">J</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-K" class="active">K</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-L" class="active">L</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-M" class="active">M</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-N" class="active">N</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-O" class="active">O</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-P" class="active">P</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-Q" class="active">Q</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-R" class="active">R</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-S" class="active">S</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-T" class="active">T</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-U" class="active">U</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-V" class="active">V</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-W" class="active">W</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">X</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">Y</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">Z</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">0</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-1" class="active">1</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">2</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">3</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">4</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#letter-5" class="active">5</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">6</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">7</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">8</a><a href="file:///C:/Users/Chris/Desktop/projects_landing.html#" style="opacity: 0.2;">9</a></nav>
+
+  <div class="project-list" id="projectList" style="display: block;"><div class="letter-group" id="letter-1"><div class="letter-heading">1</div><div class="project-item">
+        <div class="proj-num">01</div>
+        <div class="project-name">1,000,000</div>
+        <div class="project-tag">Milestone / Community</div>
+        <div class="project-desc">A milestone-tracking and community countdown app for Farcaster. Projects and creators set a numerical target and the Frame tracks live progress toward one million, with on-chain attestation issued at goal completion.</div>
+      </div><div class="project-item">
+        <div class="proj-num">02</div>
+        <div class="project-name">10 × Crypto Tokens/Coins</div>
+        <div class="project-tag">DeFi / Tokenomics</div>
+        <div class="project-desc">A suite of ten purpose-built crypto tokens each tied to a specific ecosystem, utility, or community — with clear tokenomics, launch strategy, and long-term holder incentives built in from day one.</div>
+      </div></div><div class="letter-group" id="letter-5"><div class="letter-heading">5</div><div class="project-item">
+        <div class="proj-num">03</div>
+        <div class="project-name">5 × Art Projects</div>
+        <div class="project-tag">Generative / Digital Art</div>
+        <div class="project-desc">Five distinct generative and digital art collections deployed across FxHash, OpenSea, Objkt, and Foundation. Each explores a unique aesthetic or algorithmic approach, building a diverse onchain creative portfolio.</div>
+      </div><div class="project-item">
+        <div class="proj-num">04</div>
+        <div class="project-name">5 Person Bike</div>
+        <div class="project-tag">Multiplayer / Game</div>
+        <div class="project-desc">A cooperative Farcaster Frame game where five players each control one physical variable of a shared bike — speed, lean, gear, brake, or direction — requiring real-time cast-based coordination to complete courses.</div>
+      </div></div><div class="letter-group" id="letter-A"><div class="letter-heading">A</div><div class="project-item">
+        <div class="proj-num">05</div>
+        <div class="project-name">Adult Spin</div>
+        <div class="project-tag">18+ / Social</div>
+        <div class="project-desc">A mature-audience spin wheel for adult game nights, dare challenges, and social wagering. Fully customisable and built for the kind of fun that needs its own category.</div>
+      </div><div class="project-item">
+        <div class="proj-num">06</div>
+        <div class="project-name">AI Prayer</div>
+        <div class="project-tag">Spiritual / Wellness</div>
+        <div class="project-desc">An AI-powered prayer and reflection companion generating personalised prayers, daily meditations, and spiritual affirmations tailored to faith tradition, mood, and daily intention.</div>
+      </div><div class="project-item">
+        <div class="proj-num">07</div>
+        <div class="project-name">ArbiScan</div>
+        <div class="project-tag">DeFi / Arbitrage</div>
+        <div class="project-desc">A real-time cross-exchange arbitrage detection engine monitoring price feeds across DEXs and CEXs, calculating net profit after gas and slippage, and surfacing time-sensitive opportunities via live alerts.</div>
+      </div><div class="project-item">
+        <div class="proj-num">08</div>
+        <div class="project-name">Arsenal Live App</div>
+        <div class="project-tag">Sports / Fan</div>
+        <div class="project-desc">A real-time companion app for Arsenal FC supporters featuring live match updates, squad stats, transfer news, and community match-day reactions from kick-off to final whistle.</div>
+      </div><div class="project-item">
+        <div class="proj-num">09</div>
+        <div class="project-name">Ask Rish</div>
+        <div class="project-tag">AI Assistant / Personal Brand</div>
+        <div class="project-desc">A personalised AI assistant built around a specific voice and knowledge base. Ask questions, get opinions, and interact with a curated AI that feels like talking to someone who actually knows their stuff.</div>
+      </div></div><div class="letter-group" id="letter-B"><div class="letter-heading">B</div><div class="project-item">
+        <div class="proj-num">10</div>
+        <div class="project-name">BangBetter</div>
+        <div class="project-tag">Adult / Social</div>
+        <div class="project-desc">A bold adult social platform with community, connection, and content at its core — built with fairer creator economics, clear content guidelines, and age verification from the ground up.</div>
+      </div><div class="project-item">
+        <div class="proj-num">11</div>
+        <div class="project-name">Base Swapper</div>
+        <div class="project-tag">DeFi / Bridge</div>
+        <div class="project-desc">A cross-chain token swap interface bridging Tezos and Base ecosystems with asset routing, bridge protocol selection, slippage configuration, and real-time exchange rate feeds in a unified UI.</div>
+      </div><div class="project-item">
+        <div class="proj-num">12</div>
+        <div class="project-name">Beefy Bomb</div>
+        <div class="project-tag">Casual / Wagering</div>
+        <div class="project-desc">A high-impact casual game with token-incentivised gameplay. Players detonate strategic bomb placements across grid-based levels with chain-reaction multipliers and verifiably random on-chain drops.</div>
+      </div><div class="project-item">
+        <div class="proj-num">13</div>
+        <div class="project-name">BJ Season</div>
+        <div class="project-tag">Casino / Onchain</div>
+        <div class="project-desc">A provably fair Blackjack platform on Farcaster Frames with cryptographically committed card dealing, wallet-connected wagering, full standard rules, and instant smart contract settlement.</div>
+      </div><div class="project-item">
+        <div class="proj-num">14</div>
+        <div class="project-name">Blobio</div>
+        <div class="project-tag">Casual / Arcade</div>
+        <div class="project-desc">An accessible blob-based arcade game with simple controls and addictive multiplayer chaos. Grow, absorb, and dominate the arena in a casual but deeply competitive format.</div>
+      </div><div class="project-item">
+        <div class="proj-num">15</div>
+        <div class="project-name">Brain Blitz</div>
+        <div class="project-tag">Cognitive / Competitive</div>
+        <div class="project-desc">A timed cognitive challenge game on Farcaster Frames cycling through logic, memory, and pattern recognition puzzles with millisecond-accurate on-chain scoring and provably fair round generation.</div>
+      </div><div class="project-item">
+        <div class="proj-num">16</div>
+        <div class="project-name">Broke Bot</div>
+        <div class="project-tag">Finance / Humour</div>
+        <div class="project-desc">A self-aware financial assistant for people living on the edge of their budget. Tracks spending, roasts financial decisions with dark humour, and occasionally delivers genuinely useful advice between burns.</div>
+      </div><div class="project-item">
+        <div class="proj-num">17</div>
+        <div class="project-name">Broken Bones</div>
+        <div class="project-tag">Action / Physics</div>
+        <div class="project-desc">A ragdoll physics game built around spectacular wipeouts and creative destruction. Players engineer increasingly absurd crashes and falls, chasing the most satisfying broken-bone animations the engine can produce.</div>
+      </div><div class="project-item">
+        <div class="proj-num">18</div>
+        <div class="project-name">Building Inspection Report</div>
+        <div class="project-tag">PropTech / Professional</div>
+        <div class="project-desc">A digital building inspection tool for registered inspectors featuring structured templates, photo annotation, compliance checklists, and instant PDF generation to cut report time and improve output quality.</div>
+      </div></div><div class="letter-group" id="letter-C"><div class="letter-heading">C</div><div class="project-item">
+        <div class="proj-num">19</div>
+        <div class="project-name">Carpenter's Companion</div>
+        <div class="project-tag">Professional SaaS</div>
+        <div class="project-desc">An all-in-one trade management platform for carpenters and joiners. Quote generation, job scheduling, materials estimation, and client invoicing — everything a tradesperson needs to run a tight business from the job site.</div>
+      </div><div class="project-item">
+        <div class="proj-num">20</div>
+        <div class="project-name">Catch Log</div>
+        <div class="project-tag">Utility / Sports</div>
+        <div class="project-desc">The go-to fishing diary for Victorian anglers. Log catches by species, location, and season, track personal bests, and tap into a community leaderboard mapping the hottest spots across Victoria's rivers, bays, and coastline.</div>
+      </div><div class="project-item">
+        <div class="proj-num">21</div>
+        <div class="project-name">Catholic Karaoke</div>
+        <div class="project-tag">Faith / Entertainment</div>
+        <div class="project-desc">Hymns, worship songs, and sacred music turned into a full karaoke experience for parishes, youth groups, and family gatherings. Lyrics on screen, backing tracks rolling.</div>
+      </div><div class="project-item">
+        <div class="proj-num">22</div>
+        <div class="project-name">Chrome Extension — AI Google Search</div>
+        <div class="project-tag">Productivity / AI</div>
+        <div class="project-desc">A Chrome extension enhancing Google search results with AI-generated summaries, analysis, and related insights — without a paid API key. Smarter search right in the results page with zero extra setup.</div>
+      </div><div class="project-item">
+        <div class="proj-num">23</div>
+        <div class="project-name">Click Frenzy</div>
+        <div class="project-tag">E-Commerce / Events</div>
+        <div class="project-desc">A high-energy flash sale and deals aggregator built around the Click Frenzy event format with time-limited offers, real-time countdowns, and a community buzz layer that turns online shopping into a live event.</div>
+      </div><div class="project-item">
+        <div class="proj-num">24</div>
+        <div class="project-name">CodeBreaker Live</div>
+        <div class="project-tag">Logic / Trust</div>
+        <div class="project-desc">A live cryptographic puzzle game where fairness is provable on-chain. Players crack codes in real time with verifiable randomness ensuring no house manipulation — trustless logic gaming at its finest.</div>
+      </div><div class="project-item">
+        <div class="proj-num">25</div>
+        <div class="project-name">Coin Toss Tavern</div>
+        <div class="project-tag">Social / Luck</div>
+        <div class="project-desc">The fastest onchain bar bet. Flip a coin, stake your position, settle instantly. Social by design — built for groups, pub nights, and anywhere a friendly wager needs a trustless referee.</div>
+      </div><div class="project-item">
+        <div class="proj-num">26</div>
+        <div class="project-name">Croc Hunter</div>
+        <div class="project-tag">Platformer</div>
+        <div class="project-desc">A retro-flavoured platformer with solid physics, nostalgic Australian charm, and tight level design. Navigate croc-infested terrain with classic side-scrolling gameplay that feels like a love letter to the golden age of arcade platformers.</div>
+      </div><div class="project-item">
+        <div class="proj-num">27</div>
+        <div class="project-name">Crypto Bet Predictor</div>
+        <div class="project-tag">Oracle / Market</div>
+        <div class="project-desc">An AI-assisted market prediction tool surfacing smart-money signals across crypto betting markets. Aggregates on-chain data, sentiment, and historical patterns to give users analytical edge before committing a position.</div>
+      </div><div class="project-item">
+        <div class="proj-num">28</div>
+        <div class="project-name">CryptoZoo Boxing</div>
+        <div class="project-tag">RPG / Battler</div>
+        <div class="project-desc">A deep battler where crypto-native animal NFTs train, evolve, and fight for dominance. Strategic matchups, breeding synergies, and asset retention mechanics reward long-term holders over short-term flippers.</div>
+      </div></div><div class="letter-group" id="letter-D"><div class="letter-heading">D</div><div class="project-item">
+        <div class="proj-num">29</div>
+        <div class="project-name">Deceptive Duel</div>
+        <div class="project-tag">Game Theory</div>
+        <div class="project-desc">A mind-game PvP experience built on bluffing, misdirection, and reading your opponent. Layers of psychological strategy make every match a mental chess match — designed for players who find satisfaction in outsmarting, not outgunning.</div>
+      </div><div class="project-item">
+        <div class="proj-num">30</div>
+        <div class="project-name">Degen Drifters</div>
+        <div class="project-tag">Racing / RPG</div>
+        <div class="project-desc">Arcade-grade racing with RPG progression and onchain asset ownership. Drift through procedurally generated tracks, upgrade your rig, and flex fully on-chain cars with real resale value.</div>
+      </div><div class="project-item">
+        <div class="proj-num">31</div>
+        <div class="project-name">Degen Flyrs</div>
+        <div class="project-tag">Farcaster / Promotion</div>
+        <div class="project-desc">A Farcaster-native digital flyer generator for onchain projects. Create and distribute token launches, NFT drops, and event announcements as shareable Frames with wallet metadata auto-populated.</div>
+      </div><div class="project-item">
+        <div class="proj-num">32</div>
+        <div class="project-name">Dragons' Den</div>
+        <div class="project-tag">Meta / VC</div>
+        <div class="project-desc">The social hub and deal-flow layer for Farcaster builders. Pitch ideas, find co-founders, attract micro-investment, and get community validation — where the next wave of onchain products gets its start.</div>
+      </div><div class="project-item">
+        <div class="proj-num">33</div>
+        <div class="project-name">Duel Track AI</div>
+        <div class="project-tag">Sim / Strategy</div>
+        <div class="project-desc">A passive-aggressive racing simulator where AI opponents adapt to your style, exploit your weaknesses, and talk trash doing it. Deep tuning mechanics, strategic pit play, and a rivalry system that makes every race personal.</div>
+      </div></div><div class="letter-group" id="letter-E"><div class="letter-heading">E</div><div class="project-item">
+        <div class="proj-num">34</div>
+        <div class="project-name">Eli50</div>
+        <div class="project-tag">Education / Simplification</div>
+        <div class="project-desc">Explain anything like you're 50 — clear, no-nonsense breakdowns of complex topics without jargon. A go-to tool for demystifying crypto, tech, and finance for everyday users.</div>
+      </div><div class="project-item">
+        <div class="proj-num">35</div>
+        <div class="project-name">EPL Bets NFT</div>
+        <div class="project-tag">Sports / Wagering / NFT</div>
+        <div class="project-desc">An NFT-backed EPL betting platform where match predictions are minted as tradeable tokens. Win and your NFT appreciates. Lose and it becomes a memento. Every match day is an asset event.</div>
+      </div></div><div class="letter-group" id="letter-F"><div class="letter-heading">F</div><div class="project-item">
+        <div class="proj-num">36</div>
+        <div class="project-name">Footy Stats Matcher</div>
+        <div class="project-tag">Sports / Data</div>
+        <div class="project-desc">A head-to-head stats comparison tool for AFL and EPL football. Match players, teams, or historical seasons against each other and settle debates with clean data visualisations and community commentary.</div>
+      </div><div class="project-item">
+        <div class="proj-num">37</div>
+        <div class="project-name">From 1</div>
+        <div class="project-tag">Onchain / Provenance</div>
+        <div class="project-desc">An onchain journey documentation tool capturing the full build history of a project from its first transaction, cast, or commit. Immutable timeline entries create a verifiable founding narrative stored transparently on-chain.</div>
+      </div></div><div class="letter-group" id="letter-G"><div class="letter-heading">G</div><div class="project-item">
+        <div class="proj-num">38</div>
+        <div class="project-name">Guess the Number</div>
+        <div class="project-tag">Casual / Game</div>
+        <div class="project-desc">A deceptively simple number-guessing game with onchain fairness and wagering built in. Light, fast, and perfect for filling 60 seconds — or losing an hour chasing the right answer.</div>
+      </div><div class="project-item">
+        <div class="proj-num">39</div>
+        <div class="project-name">Guess Up/Down</div>
+        <div class="project-tag">Market / Game</div>
+        <div class="project-desc">A fast-play price prediction game. Pick whether the next candle goes up or down, stake your position, and settle in seconds. Crypto-native, low-friction, and built for high-frequency casual play.</div>
+      </div></div><div class="letter-group" id="letter-H"><div class="letter-heading">H</div><div class="project-item">
+        <div class="proj-num">40</div>
+        <div class="project-name">Hold the Chicken</div>
+        <div class="project-tag">Casual / Food / Humour</div>
+        <div class="project-desc">A fast-paced order management game set in a chaotic fast food kitchen. Customers want it their way, orders keep stacking, and one wrong ingredient triggers a meltdown. Addictive and deeply relatable.</div>
+      </div></div><div class="letter-group" id="letter-I"><div class="letter-heading">I</div><div class="project-item">
+        <div class="proj-num">41</div>
+        <div class="project-name">Instagram Feed RSS</div>
+        <div class="project-tag">Utility / Bridge</div>
+        <div class="project-desc">A Farcaster-compatible RSS bridge converting public Instagram feeds into subscribable data streams. Outputs structured post metadata into RSS-standard format consumable by any feed reader, Frame, or onchain oracle.</div>
+      </div><div class="project-item">
+        <div class="proj-num">42</div>
+        <div class="project-name">iTunes Gift Card</div>
+        <div class="project-tag">E-Commerce / Utility</div>
+        <div class="project-desc">A streamlined platform for purchasing, gifting, and managing iTunes and Apple ecosystem gift cards with fast checkout, instant delivery, and a gifting flow that makes digital presents feel personal.</div>
+      </div></div><div class="letter-group" id="letter-K"><div class="letter-heading">K</div><div class="project-item">
+        <div class="proj-num">43</div>
+        <div class="project-name">Krusty Krab's Jackpot</div>
+        <div class="project-tag">Casual / Gambling</div>
+        <div class="project-desc">A themed jackpot slot game dripping in nautical nostalgia. Pull the lever, chase the Krabby Patty symbols, and trigger bonus rounds in a lighthearted community-loved gambling experience with big personality.</div>
+      </div></div><div class="letter-group" id="letter-L"><div class="letter-heading">L</div><div class="project-item">
+        <div class="proj-num">44</div>
+        <div class="project-name">Leah's Book</div>
+        <div class="project-tag">Publishing / Personal Brand</div>
+        <div class="project-desc">A dedicated digital home for Leah's writing — fiction, memoir, or non-fiction. A clean reading experience, community engagement tools, and direct reader connection built around a single author's voice.</div>
+      </div></div><div class="letter-group" id="letter-M"><div class="letter-heading">M</div><div class="project-item">
+        <div class="proj-num">45</div>
+        <div class="project-name">Media Grabber Pro</div>
+        <div class="project-tag">Utility / Tool</div>
+        <div class="project-desc">A fast, clean media downloader pulling video, audio, and images from across the web with minimal friction. Built for daily use — the kind of tool people open without thinking about it.</div>
+      </div><div class="project-item">
+        <div class="proj-num">46</div>
+        <div class="project-name">Memo App</div>
+        <div class="project-tag">Productivity / Notes</div>
+        <div class="project-desc">A fast, frictionless memo and voice note app. Capture thoughts in text, audio, or photo the moment they arrive, with smart tagging and search that makes retrieval as easy as capture.</div>
+      </div><div class="project-item">
+        <div class="proj-num">47</div>
+        <div class="project-name">Modern To Do</div>
+        <div class="project-tag">Productivity</div>
+        <div class="project-desc">A clean, minimal task manager for people who've tried every to-do app and given up on all of them. Frictionless capture, smart prioritisation, and a UI that gets out of your way.</div>
+      </div><div class="project-item">
+        <div class="proj-num">48</div>
+        <div class="project-name">Molly Spin</div>
+        <div class="project-tag">Social / Chance</div>
+        <div class="project-desc">A social spin-the-wheel game with customisable dares, rewards, and community challenges. Great for groups, parties, and live streams — fast to set up and immediately engaging for any crowd.</div>
+      </div></div><div class="letter-group" id="letter-N"><div class="letter-heading">N</div><div class="project-item">
+        <div class="proj-num">49</div>
+        <div class="project-name">NBA Hoops</div>
+        <div class="project-tag">Sports / Fantasy</div>
+        <div class="project-desc">A real-time NBA stats and fantasy companion app with live scores, player performance tracking, and community predictions wrapped in a clean interface for the serious basketball fan and fantasy coach alike.</div>
+      </div><div class="project-item">
+        <div class="proj-num">50</div>
+        <div class="project-name">Neon Horse</div>
+        <div class="project-tag">Breeding / RPG</div>
+        <div class="project-desc">A deep breeding and strategy RPG rooted in Australian racing heritage, wrapped in neon-soaked aesthetics. Breed, train, and race lineage-tracked horses in a world where bloodlines and on-chain provenance actually matter.</div>
+      </div></div><div class="letter-group" id="letter-O"><div class="letter-heading">O</div><div class="project-item">
+        <div class="proj-num">51</div>
+        <div class="project-name">Obstacle Dodge</div>
+        <div class="project-tag">Arcade / Reflex</div>
+        <div class="project-desc">A reflex-based arcade game on Farcaster Frames where players navigate an onchain character through procedurally generated obstacles. Each run is logged on-chain for leaderboard integrity — no spoofing, no soft resets.</div>
+      </div></div><div class="letter-group" id="letter-P"><div class="letter-heading">P</div><div class="project-item">
+        <div class="proj-num">52</div>
+        <div class="project-name">Physics App</div>
+        <div class="project-tag">Education / Simulation</div>
+        <div class="project-desc">An interactive physics simulation tool modelling real-world forces — gravity, friction, momentum, and collision — in a browser-native environment. Useful for builders prototyping game mechanics or educators demonstrating Newtonian principles.</div>
+      </div><div class="project-item">
+        <div class="proj-num">53</div>
+        <div class="project-name">Pizza Toss</div>
+        <div class="project-tag">Casual / Arcade</div>
+        <div class="project-desc">A physics-based arcade game where players toss, spin, and launch pizzas at increasingly chaotic targets. Satisfying trajectory mechanics, ridiculous toppings, and the kind of silliness that makes it instantly shareable.</div>
+      </div><div class="project-item">
+        <div class="proj-num">54</div>
+        <div class="project-name">Profile Pick Matcher</div>
+        <div class="project-tag">Social / AI</div>
+        <div class="project-desc">An AI tool that analyses your social profile photo and recommends or generates optimised alternatives. Better first impressions matched to platform tone — whether approachable, professional, or magnetic.</div>
+      </div></div><div class="letter-group" id="letter-Q"><div class="letter-heading">Q</div><div class="project-item">
+        <div class="proj-num">55</div>
+        <div class="project-name">Quotes of Inspiration</div>
+        <div class="project-tag">Wellness / Content</div>
+        <div class="project-desc">A daily inspiration platform delivering curated quotes across categories — resilience, faith, ambition, and gratitude. Personalised feeds, shareable cards, and community submission keep the content fresh and human.</div>
+      </div></div><div class="letter-group" id="letter-R"><div class="letter-heading">R</div><div class="project-item">
+        <div class="proj-num">56</div>
+        <div class="project-name">Risk Checker</div>
+        <div class="project-tag">DeFi / Utility</div>
+        <div class="project-desc">A smart contract and wallet risk assessment tool. Scans protocols, flags exposure, and gives users a plain-English risk score before they connect, approve, or ape into anything they might regret.</div>
+      </div><div class="project-item">
+        <div class="proj-num">57</div>
+        <div class="project-name">RL Trainer</div>
+        <div class="project-tag">Gaming / AI</div>
+        <div class="project-desc">A reinforcement learning-powered training assistant for Rocket League players. Analyses replays, identifies mechanical weaknesses, and generates personalised drill sequences to accelerate rank progression.</div>
+      </div><div class="project-item">
+        <div class="proj-num">58</div>
+        <div class="project-name">RoadFlow</div>
+        <div class="project-tag">Civic Infrastructure</div>
+        <div class="project-desc">A community-driven traffic management and road condition reporting app tackling the most visible local pain point. Real-time congestion updates, incident reporting, and route optimisation give residents a tangible tool to reclaim their commute.</div>
+      </div></div><div class="letter-group" id="letter-S"><div class="letter-heading">S</div><div class="project-item">
+        <div class="proj-num">59</div>
+        <div class="project-name">Scritchy Scratchy</div>
+        <div class="project-tag">Chance / Idle</div>
+        <div class="project-desc">A dopamine-optimised scratch card idle game. Solo play, instant gratification, and a progression loop that keeps players coming back. The digital equivalent of a scratchie in your pocket at all times.</div>
+      </div><div class="project-item">
+        <div class="proj-num">60</div>
+        <div class="project-name">Shelbifield Casino</div>
+        <div class="project-tag">Gambling / Social</div>
+        <div class="project-desc">An established social betting and casino framework with a community-first approach. Table games, slots, and social wagering built around shared experiences and a loyal player base that keeps the house lively.</div>
+      </div><div class="project-item">
+        <div class="proj-num">61</div>
+        <div class="project-name">Site Tagger</div>
+        <div class="project-tag">Productivity / Extension</div>
+        <div class="project-desc">A browser tool for tagging, annotating, and organising web pages into personal collections. Research, inspiration boards, and saved content — all tagged, searchable, and retrievable without the tab graveyard.</div>
+      </div><div class="project-item">
+        <div class="proj-num">62</div>
+        <div class="project-name">Skipping Stones League</div>
+        <div class="project-tag">Sports / Community</div>
+        <div class="project-desc">A competitive skipping stones league with real-world event coordination, online leaderboards, and community scoring. Bringing a beloved pastime into a structured, trackable format for enthusiasts and casual players alike.</div>
+      </div><div class="project-item">
+        <div class="proj-num">63</div>
+        <div class="project-name">Snake Hunter</div>
+        <div class="project-tag">Arcade / Reflex</div>
+        <div class="project-desc">A reflex arcade game with a clean, responsive UI and satisfying core loop. Hunt snakes across increasingly unforgiving levels with haptic-grade feedback that makes every strike feel crisp.</div>
+      </div><div class="project-item">
+        <div class="proj-num">64</div>
+        <div class="project-name">Snap Builder</div>
+        <div class="project-tag">No-Code / Farcaster</div>
+        <div class="project-desc">A rapid prototyping and no-code builder for Farcaster Frames and onchain mini-apps. Drag-and-drop component assembly, real-time Frame preview, and one-click deployment to a hosted endpoint.</div>
+      </div><div class="project-item">
+        <div class="proj-num">65</div>
+        <div class="project-name">Social Miner</div>
+        <div class="project-tag">Analytics / Farcaster</div>
+        <div class="project-desc">A Farcaster-native social analytics and data extraction tool mining cast engagement, follower growth, channel performance, and interaction patterns to surface actionable insights for power users and community managers.</div>
+      </div><div class="project-item">
+        <div class="proj-num">66</div>
+        <div class="project-name">St. Christopher Designer</div>
+        <div class="project-tag">Creative / Branding</div>
+        <div class="project-desc">A generative brand identity tool themed around St. Christopher iconography — travel, protection, craftsmanship — producing logos, colour palettes, and type pairings with optional Tezos/Base NFT minting for provenance.</div>
+      </div></div><div class="letter-group" id="letter-T"><div class="letter-heading">T</div><div class="project-item">
+        <div class="proj-num">67</div>
+        <div class="project-name">TezAnywhere</div>
+        <div class="project-tag">Tezos / Cross-Platform</div>
+        <div class="project-desc">A cross-platform Tezos wallet and DApp interaction tool providing access to the Tezos blockchain from any device with a clean interface lowering the barrier for new and experienced users alike.</div>
+      </div><div class="project-item">
+        <div class="proj-num">68</div>
+        <div class="project-name">Tezos</div>
+        <div class="project-tag">Blockchain / Utility</div>
+        <div class="project-desc">A Tezos ecosystem utility hub providing wallet management, DApp interaction, and protocol tooling. Clean interface, cross-device compatibility, and a low barrier to entry for new and experienced Tezos users alike.</div>
+      </div><div class="project-item">
+        <div class="proj-num">69</div>
+        <div class="project-name">The Living Accord</div>
+        <div class="project-tag">Governance / DAO</div>
+        <div class="project-desc">A living document framework for onchain communities and DAOs. Collaborative, versioned, and enforceable — where community values, rules, and commitments evolve together and are transparently recorded on-chain.</div>
+      </div><div class="project-item">
+        <div class="proj-num">70</div>
+        <div class="project-name">Tool Tracker</div>
+        <div class="project-tag">Productivity / Inventory</div>
+        <div class="project-desc">An inventory and loan management app for tools and equipment. Ideal for tradespeople, makerspaces, and workshops — track what you own, who has it, and when it's due back without the clipboard.</div>
+      </div><div class="project-item">
+        <div class="proj-num">71</div>
+        <div class="project-name">Top 100 Horses</div>
+        <div class="project-tag">Racing / Data</div>
+        <div class="project-desc">A ranked leaderboard and data platform tracking the top 100 performing horses in the onchain or real-world racing ecosystem. Stats, form guides, breeding history, and community voting keep the rankings live and contested.</div>
+      </div><div class="project-item">
+        <div class="proj-num">72</div>
+        <div class="project-name">Turret Bet</div>
+        <div class="project-tag">Strategy / Wagering</div>
+        <div class="project-desc">A tower-defence inspired betting game where players wager on the outcome of automated turret battles. Strategy meets chance in a format that rewards pattern recognition and positional thinking.</div>
+      </div></div><div class="letter-group" id="letter-U"><div class="letter-heading">U</div><div class="project-item">
+        <div class="proj-num">73</div>
+        <div class="project-name">Universal Form Filler</div>
+        <div class="project-tag">Productivity / Extension</div>
+        <div class="project-desc">A browser extension and Farcaster-integrated utility auto-populating web forms using wallet identity, ENS records, and stored profile data. Encrypted local storage of fill templates — no data leaves the device without explicit user action.</div>
+      </div></div><div class="letter-group" id="letter-V"><div class="letter-heading">V</div><div class="project-item">
+        <div class="proj-num">74</div>
+        <div class="project-name">Vid Downloader</div>
+        <div class="project-tag">Utility / Media</div>
+        <div class="project-desc">A Farcaster Frame-embedded video download utility supporting multiple platforms and formats. Paste any URL, select resolution and container format, and receive a direct download link — all processed server-side.</div>
+      </div></div><div class="letter-group" id="letter-W"><div class="letter-heading">W</div><div class="project-item">
+        <div class="proj-num">75</div>
+        <div class="project-name">Web Spinner</div>
+        <div class="project-tag">Scraping / Data</div>
+        <div class="project-desc">A browser-based web scraping and data aggregation tool with Farcaster-connected output. Configure extraction rules via visual selector, schedule recurring scrapes, and pipe structured output into Frames, feeds, or on-chain storage.</div>
+      </div><div class="project-item">
+        <div class="proj-num">76</div>
+        <div class="project-name">Wolf Hunter</div>
+        <div class="project-tag">Arcade / Reflex / Social</div>
+        <div class="project-desc">A fast-paced hunting arcade game with social mechanics, token-based progression, and community promotion built in. Hunt, earn, climb the leaderboard, and flex your haul to a live social feed.</div>
+      </div></div></div>
+  <div class="no-results" id="noResults" style="display: none;">NO PROJECTS MATCH YOUR SEARCH.</div>
+</div>
+
+<div class="wrap">
+  <footer>
+    <span>© 2025 — ALL PROJECTS RESERVED</span>
+    <span>76 ENTRIES — ALPHABETICAL INDEX</span>
+  </footer>
+</div>
+
+<script>
+const projects = [
+  { name: "5 Person Bike", tag: "Multiplayer / Game", desc: "A cooperative Farcaster Frame game where five players each control one physical variable of a shared bike — speed, lean, gear, brake, or direction — requiring real-time cast-based coordination to complete courses." },
+  { name: "Adult Spin", tag: "18+ / Social", desc: "A mature-audience spin wheel for adult game nights, dare challenges, and social wagering. Fully customisable and built for the kind of fun that needs its own category." },
+  { name: "AI Prayer", tag: "Spiritual / Wellness", desc: "An AI-powered prayer and reflection companion generating personalised prayers, daily meditations, and spiritual affirmations tailored to faith tradition, mood, and daily intention." },
+  { name: "ArbiScan", tag: "DeFi / Arbitrage", desc: "A real-time cross-exchange arbitrage detection engine monitoring price feeds across DEXs and CEXs, calculating net profit after gas and slippage, and surfacing time-sensitive opportunities via live alerts." },
+  { name: "Arsenal Live App", tag: "Sports / Fan", desc: "A real-time companion app for Arsenal FC supporters featuring live match updates, squad stats, transfer news, and community match-day reactions from kick-off to final whistle." },
+  { name: "Ask Rish", tag: "AI Assistant / Personal Brand", desc: "A personalised AI assistant built around a specific voice and knowledge base. Ask questions, get opinions, and interact with a curated AI that feels like talking to someone who actually knows their stuff." },
+  { name: "BangBetter", tag: "Adult / Social", desc: "A bold adult social platform with community, connection, and content at its core — built with fairer creator economics, clear content guidelines, and age verification from the ground up." },
+  { name: "Base Swapper", tag: "DeFi / Bridge", desc: "A cross-chain token swap interface bridging Tezos and Base ecosystems with asset routing, bridge protocol selection, slippage configuration, and real-time exchange rate feeds in a unified UI." },
+  { name: "Beefy Bomb", tag: "Casual / Wagering", desc: "A high-impact casual game with token-incentivised gameplay. Players detonate strategic bomb placements across grid-based levels with chain-reaction multipliers and verifiably random on-chain drops." },
+  { name: "BJ Season", tag: "Casino / Onchain", desc: "A provably fair Blackjack platform on Farcaster Frames with cryptographically committed card dealing, wallet-connected wagering, full standard rules, and instant smart contract settlement." },
+  { name: "Blobio", tag: "Casual / Arcade", desc: "An accessible blob-based arcade game with simple controls and addictive multiplayer chaos. Grow, absorb, and dominate the arena in a casual but deeply competitive format." },
+  { name: "Brain Blitz", tag: "Cognitive / Competitive", desc: "A timed cognitive challenge game on Farcaster Frames cycling through logic, memory, and pattern recognition puzzles with millisecond-accurate on-chain scoring and provably fair round generation." },
+  { name: "Broke Bot", tag: "Finance / Humour", desc: "A self-aware financial assistant for people living on the edge of their budget. Tracks spending, roasts financial decisions with dark humour, and occasionally delivers genuinely useful advice between burns." },
+  { name: "Broken Bones", tag: "Action / Physics", desc: "A ragdoll physics game built around spectacular wipeouts and creative destruction. Players engineer increasingly absurd crashes and falls, chasing the most satisfying broken-bone animations the engine can produce." },
+  { name: "Building Inspection Report", tag: "PropTech / Professional", desc: "A digital building inspection tool for registered inspectors featuring structured templates, photo annotation, compliance checklists, and instant PDF generation to cut report time and improve output quality." },
+  { name: "Carpenter's Companion", tag: "Professional SaaS", desc: "An all-in-one trade management platform for carpenters and joiners. Quote generation, job scheduling, materials estimation, and client invoicing — everything a tradesperson needs to run a tight business from the job site." },
+  { name: "Catch Log", tag: "Utility / Sports", desc: "The go-to fishing diary for Victorian anglers. Log catches by species, location, and season, track personal bests, and tap into a community leaderboard mapping the hottest spots across Victoria's rivers, bays, and coastline." },
+  { name: "Catholic Karaoke", tag: "Faith / Entertainment", desc: "Hymns, worship songs, and sacred music turned into a full karaoke experience for parishes, youth groups, and family gatherings. Lyrics on screen, backing tracks rolling." },
+  { name: "Chrome Extension — AI Google Search", tag: "Productivity / AI", desc: "A Chrome extension enhancing Google search results with AI-generated summaries, analysis, and related insights — without a paid API key. Smarter search right in the results page with zero extra setup." },
+  { name: "Click Frenzy", tag: "E-Commerce / Events", desc: "A high-energy flash sale and deals aggregator built around the Click Frenzy event format with time-limited offers, real-time countdowns, and a community buzz layer that turns online shopping into a live event." },
+  { name: "CodeBreaker Live", tag: "Logic / Trust", desc: "A live cryptographic puzzle game where fairness is provable on-chain. Players crack codes in real time with verifiable randomness ensuring no house manipulation — trustless logic gaming at its finest." },
+  { name: "Coin Toss Tavern", tag: "Social / Luck", desc: "The fastest onchain bar bet. Flip a coin, stake your position, settle instantly. Social by design — built for groups, pub nights, and anywhere a friendly wager needs a trustless referee." },
+  { name: "CryptoZoo Boxing", tag: "RPG / Battler", desc: "A deep battler where crypto-native animal NFTs train, evolve, and fight for dominance. Strategic matchups, breeding synergies, and asset retention mechanics reward long-term holders over short-term flippers." },
+  { name: "Crypto Bet Predictor", tag: "Oracle / Market", desc: "An AI-assisted market prediction tool surfacing smart-money signals across crypto betting markets. Aggregates on-chain data, sentiment, and historical patterns to give users analytical edge before committing a position." },
+  { name: "10 × Crypto Tokens/Coins", tag: "DeFi / Tokenomics", desc: "A suite of ten purpose-built crypto tokens each tied to a specific ecosystem, utility, or community — with clear tokenomics, launch strategy, and long-term holder incentives built in from day one." },
+  { name: "Croc Hunter", tag: "Platformer", desc: "A retro-flavoured platformer with solid physics, nostalgic Australian charm, and tight level design. Navigate croc-infested terrain with classic side-scrolling gameplay that feels like a love letter to the golden age of arcade platformers." },
+  { name: "Deceptive Duel", tag: "Game Theory", desc: "A mind-game PvP experience built on bluffing, misdirection, and reading your opponent. Layers of psychological strategy make every match a mental chess match — designed for players who find satisfaction in outsmarting, not outgunning." },
+  { name: "Degen Drifters", tag: "Racing / RPG", desc: "Arcade-grade racing with RPG progression and onchain asset ownership. Drift through procedurally generated tracks, upgrade your rig, and flex fully on-chain cars with real resale value." },
+  { name: "Degen Flyrs", tag: "Farcaster / Promotion", desc: "A Farcaster-native digital flyer generator for onchain projects. Create and distribute token launches, NFT drops, and event announcements as shareable Frames with wallet metadata auto-populated." },
+  { name: "Dragons' Den", tag: "Meta / VC", desc: "The social hub and deal-flow layer for Farcaster builders. Pitch ideas, find co-founders, attract micro-investment, and get community validation — where the next wave of onchain products gets its start." },
+  { name: "Duel Track AI", tag: "Sim / Strategy", desc: "A passive-aggressive racing simulator where AI opponents adapt to your style, exploit your weaknesses, and talk trash doing it. Deep tuning mechanics, strategic pit play, and a rivalry system that makes every race personal." },
+  { name: "Eli50", tag: "Education / Simplification", desc: "Explain anything like you're 50 — clear, no-nonsense breakdowns of complex topics without jargon. A go-to tool for demystifying crypto, tech, and finance for everyday users." },
+  { name: "EPL Bets NFT", tag: "Sports / Wagering / NFT", desc: "An NFT-backed EPL betting platform where match predictions are minted as tradeable tokens. Win and your NFT appreciates. Lose and it becomes a memento. Every match day is an asset event." },
+  { name: "5 × Art Projects", tag: "Generative / Digital Art", desc: "Five distinct generative and digital art collections deployed across FxHash, OpenSea, Objkt, and Foundation. Each explores a unique aesthetic or algorithmic approach, building a diverse onchain creative portfolio." },
+  { name: "From 1", tag: "Onchain / Provenance", desc: "An onchain journey documentation tool capturing the full build history of a project from its first transaction, cast, or commit. Immutable timeline entries create a verifiable founding narrative stored transparently on-chain." },
+  { name: "Footy Stats Matcher", tag: "Sports / Data", desc: "A head-to-head stats comparison tool for AFL and EPL football. Match players, teams, or historical seasons against each other and settle debates with clean data visualisations and community commentary." },
+  { name: "Guess the Number", tag: "Casual / Game", desc: "A deceptively simple number-guessing game with onchain fairness and wagering built in. Light, fast, and perfect for filling 60 seconds — or losing an hour chasing the right answer." },
+  { name: "Guess Up/Down", tag: "Market / Game", desc: "A fast-play price prediction game. Pick whether the next candle goes up or down, stake your position, and settle in seconds. Crypto-native, low-friction, and built for high-frequency casual play." },
+  { name: "Hold the Chicken", tag: "Casual / Food / Humour", desc: "A fast-paced order management game set in a chaotic fast food kitchen. Customers want it their way, orders keep stacking, and one wrong ingredient triggers a meltdown. Addictive and deeply relatable." },
+  { name: "Instagram Feed RSS", tag: "Utility / Bridge", desc: "A Farcaster-compatible RSS bridge converting public Instagram feeds into subscribable data streams. Outputs structured post metadata into RSS-standard format consumable by any feed reader, Frame, or onchain oracle." },
+  { name: "iTunes Gift Card", tag: "E-Commerce / Utility", desc: "A streamlined platform for purchasing, gifting, and managing iTunes and Apple ecosystem gift cards with fast checkout, instant delivery, and a gifting flow that makes digital presents feel personal." },
+  { name: "Krusty Krab's Jackpot", tag: "Casual / Gambling", desc: "A themed jackpot slot game dripping in nautical nostalgia. Pull the lever, chase the Krabby Patty symbols, and trigger bonus rounds in a lighthearted community-loved gambling experience with big personality." },
+  { name: "Leah's Book", tag: "Publishing / Personal Brand", desc: "A dedicated digital home for Leah's writing — fiction, memoir, or non-fiction. A clean reading experience, community engagement tools, and direct reader connection built around a single author's voice." },
+  { name: "Media Grabber Pro", tag: "Utility / Tool", desc: "A fast, clean media downloader pulling video, audio, and images from across the web with minimal friction. Built for daily use — the kind of tool people open without thinking about it." },
+  { name: "Memo App", tag: "Productivity / Notes", desc: "A fast, frictionless memo and voice note app. Capture thoughts in text, audio, or photo the moment they arrive, with smart tagging and search that makes retrieval as easy as capture." },
+  { name: "Modern To Do", tag: "Productivity", desc: "A clean, minimal task manager for people who've tried every to-do app and given up on all of them. Frictionless capture, smart prioritisation, and a UI that gets out of your way." },
+  { name: "Molly Spin", tag: "Social / Chance", desc: "A social spin-the-wheel game with customisable dares, rewards, and community challenges. Great for groups, parties, and live streams — fast to set up and immediately engaging for any crowd." },
+  { name: "NBA Hoops", tag: "Sports / Fantasy", desc: "A real-time NBA stats and fantasy companion app with live scores, player performance tracking, and community predictions wrapped in a clean interface for the serious basketball fan and fantasy coach alike." },
+  { name: "Neon Horse", tag: "Breeding / RPG", desc: "A deep breeding and strategy RPG rooted in Australian racing heritage, wrapped in neon-soaked aesthetics. Breed, train, and race lineage-tracked horses in a world where bloodlines and on-chain provenance actually matter." },
+  { name: "Obstacle Dodge", tag: "Arcade / Reflex", desc: "A reflex-based arcade game on Farcaster Frames where players navigate an onchain character through procedurally generated obstacles. Each run is logged on-chain for leaderboard integrity — no spoofing, no soft resets." },
+  { name: "Physics App", tag: "Education / Simulation", desc: "An interactive physics simulation tool modelling real-world forces — gravity, friction, momentum, and collision — in a browser-native environment. Useful for builders prototyping game mechanics or educators demonstrating Newtonian principles." },
+  { name: "Pizza Toss", tag: "Casual / Arcade", desc: "A physics-based arcade game where players toss, spin, and launch pizzas at increasingly chaotic targets. Satisfying trajectory mechanics, ridiculous toppings, and the kind of silliness that makes it instantly shareable." },
+  { name: "Profile Pick Matcher", tag: "Social / AI", desc: "An AI tool that analyses your social profile photo and recommends or generates optimised alternatives. Better first impressions matched to platform tone — whether approachable, professional, or magnetic." },
+  { name: "Quotes of Inspiration", tag: "Wellness / Content", desc: "A daily inspiration platform delivering curated quotes across categories — resilience, faith, ambition, and gratitude. Personalised feeds, shareable cards, and community submission keep the content fresh and human." },
+  { name: "Risk Checker", tag: "DeFi / Utility", desc: "A smart contract and wallet risk assessment tool. Scans protocols, flags exposure, and gives users a plain-English risk score before they connect, approve, or ape into anything they might regret." },
+  { name: "RL Trainer", tag: "Gaming / AI", desc: "A reinforcement learning-powered training assistant for Rocket League players. Analyses replays, identifies mechanical weaknesses, and generates personalised drill sequences to accelerate rank progression." },
+  { name: "RoadFlow", tag: "Civic Infrastructure", desc: "A community-driven traffic management and road condition reporting app tackling the most visible local pain point. Real-time congestion updates, incident reporting, and route optimisation give residents a tangible tool to reclaim their commute." },
+  { name: "Scritchy Scratchy", tag: "Chance / Idle", desc: "A dopamine-optimised scratch card idle game. Solo play, instant gratification, and a progression loop that keeps players coming back. The digital equivalent of a scratchie in your pocket at all times." },
+  { name: "Shelbifield Casino", tag: "Gambling / Social", desc: "An established social betting and casino framework with a community-first approach. Table games, slots, and social wagering built around shared experiences and a loyal player base that keeps the house lively." },
+  { name: "Site Tagger", tag: "Productivity / Extension", desc: "A browser tool for tagging, annotating, and organising web pages into personal collections. Research, inspiration boards, and saved content — all tagged, searchable, and retrievable without the tab graveyard." },
+  { name: "Skipping Stones League", tag: "Sports / Community", desc: "A competitive skipping stones league with real-world event coordination, online leaderboards, and community scoring. Bringing a beloved pastime into a structured, trackable format for enthusiasts and casual players alike." },
+  { name: "Snake Hunter", tag: "Arcade / Reflex", desc: "A reflex arcade game with a clean, responsive UI and satisfying core loop. Hunt snakes across increasingly unforgiving levels with haptic-grade feedback that makes every strike feel crisp." },
+  { name: "Snap Builder", tag: "No-Code / Farcaster", desc: "A rapid prototyping and no-code builder for Farcaster Frames and onchain mini-apps. Drag-and-drop component assembly, real-time Frame preview, and one-click deployment to a hosted endpoint." },
+  { name: "Social Miner", tag: "Analytics / Farcaster", desc: "A Farcaster-native social analytics and data extraction tool mining cast engagement, follower growth, channel performance, and interaction patterns to surface actionable insights for power users and community managers." },
+  { name: "St. Christopher Designer", tag: "Creative / Branding", desc: "A generative brand identity tool themed around St. Christopher iconography — travel, protection, craftsmanship — producing logos, colour palettes, and type pairings with optional Tezos/Base NFT minting for provenance." },
+  { name: "Tezos", tag: "Blockchain / Utility", desc: "A Tezos ecosystem utility hub providing wallet management, DApp interaction, and protocol tooling. Clean interface, cross-device compatibility, and a low barrier to entry for new and experienced Tezos users alike." },
+  { name: "TezAnywhere", tag: "Tezos / Cross-Platform", desc: "A cross-platform Tezos wallet and DApp interaction tool providing access to the Tezos blockchain from any device with a clean interface lowering the barrier for new and experienced users alike." },
+  { name: "The Living Accord", tag: "Governance / DAO", desc: "A living document framework for onchain communities and DAOs. Collaborative, versioned, and enforceable — where community values, rules, and commitments evolve together and are transparently recorded on-chain." },
+  { name: "Tool Tracker", tag: "Productivity / Inventory", desc: "An inventory and loan management app for tools and equipment. Ideal for tradespeople, makerspaces, and workshops — track what you own, who has it, and when it's due back without the clipboard." },
+  { name: "Top 100 Horses", tag: "Racing / Data", desc: "A ranked leaderboard and data platform tracking the top 100 performing horses in the onchain or real-world racing ecosystem. Stats, form guides, breeding history, and community voting keep the rankings live and contested." },
+  { name: "Turret Bet", tag: "Strategy / Wagering", desc: "A tower-defence inspired betting game where players wager on the outcome of automated turret battles. Strategy meets chance in a format that rewards pattern recognition and positional thinking." },
+  { name: "Universal Form Filler", tag: "Productivity / Extension", desc: "A browser extension and Farcaster-integrated utility auto-populating web forms using wallet identity, ENS records, and stored profile data. Encrypted local storage of fill templates — no data leaves the device without explicit user action." },
+  { name: "Vid Downloader", tag: "Utility / Media", desc: "A Farcaster Frame-embedded video download utility supporting multiple platforms and formats. Paste any URL, select resolution and container format, and receive a direct download link — all processed server-side." },
+  { name: "Web Spinner", tag: "Scraping / Data", desc: "A browser-based web scraping and data aggregation tool with Farcaster-connected output. Configure extraction rules via visual selector, schedule recurring scrapes, and pipe structured output into Frames, feeds, or on-chain storage." },
+  { name: "Wolf Hunter", tag: "Arcade / Reflex / Social", desc: "A fast-paced hunting arcade game with social mechanics, token-based progression, and community promotion built in. Hunt, earn, climb the leaderboard, and flex your haul to a live social feed." },
+  { name: "1,000,000", tag: "Milestone / Community", desc: "A milestone-tracking and community countdown app for Farcaster. Projects and creators set a numerical target and the Frame tracks live progress toward one million, with on-chain attestation issued at goal completion." },
+];
+
+// Sort alphabetically
+projects.sort((a, b) => a.name.localeCompare(b.name));
+
+// Build alphabet nav
+const letters = [...new Set(projects.map(p => p.name[0].toUpperCase()))].sort();
+const alphaNav = document.getElementById('alphaNav');
+'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('').forEach(l => {
+  const a = document.createElement('a');
+  a.href = letters.includes(l) ? `#letter-${l}` : '#';
+  a.textContent = l;
+  if (!letters.includes(l)) a.style.opacity = '0.2';
+  else a.classList.add('active');
+  alphaNav.appendChild(a);
+});
+
+// Build list
+function render(filter = '') {
+  const list = document.getElementById('projectList');
+  const noResults = document.getElementById('noResults');
+  const countEl = document.getElementById('count');
+  list.innerHTML = '';
+
+  const filtered = filter
+    ? projects.filter(p =>
+        p.name.toLowerCase().includes(filter) ||
+        p.tag.toLowerCase().includes(filter) ||
+        p.desc.toLowerCase().includes(filter)
+      )
+    : projects;
+
+  countEl.textContent = `SHOWING ${filtered.length} OF ${projects.length} PROJECTS`;
+
+  if (filtered.length === 0) {
+    noResults.style.display = 'block';
+    list.style.display = 'none';
+    return;
+  }
+
+  noResults.style.display = 'none';
+  list.style.display = 'block';
+
+  // Group by first letter
+  const groups = {};
+  filtered.forEach((p, i) => {
+    const letter = p.name[0].toUpperCase();
+    if (!groups[letter]) groups[letter] = [];
+    groups[letter].push({ ...p, globalIndex: projects.indexOf(p) + 1 });
+  });
+
+  Object.keys(groups).sort().forEach(letter => {
+    const group = document.createElement('div');
+    group.className = 'letter-group';
+    group.id = `letter-${letter}`;
+
+    const heading = document.createElement('div');
+    heading.className = 'letter-heading';
+    heading.textContent = letter;
+    group.appendChild(heading);
+
+    groups[letter].forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'project-item';
+      item.innerHTML = `
+        <div class="proj-num">${String(p.globalIndex).padStart(2,'0')}</div>
+        <div class="project-name">${p.name}</div>
+        <div class="project-tag">${p.tag}</div>
+        <div class="project-desc">${p.desc}</div>
+      `;
+      group.appendChild(item);
+    });
+
+    list.appendChild(group);
+  });
+}
+
+render();
+
+document.getElementById('search').addEventListener('input', e => {
+  render(e.target.value.toLowerCase().trim());
+});
+</script>
+
+
+</body></html>
